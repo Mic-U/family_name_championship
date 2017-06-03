@@ -3,12 +3,11 @@ defmodule FamilyNameChampionship do
    Decide the STRONGEST family name in Japan.
   """
 
-  def main([]) do
-    IO.puts "Start"
+  def main(player) do
+    IO.puts "Player Name: #{player}"
     url = "http://myoujijiten.web.fc2.com/a1.html";
     list = ScrapeWebPage.getHTML(url)
     name = Enum.at(list, 0)
-    player = "三木"
-    IO.puts player > name
+    IO.puts "#{player} vs #{name}: #{player > name}"
   end
 end
