@@ -23,6 +23,9 @@ defmodule ScrapeWebPage do
     Floki.find(body, "div tbody tr")
       |> Enum.map(&(findName(&1)))
       |> Enum.filter(&(String.length(&1) > 0))
+      |> Enum.map(fn name ->
+        [name: name, hash: cryptoString(name)]
+      end)
   end
 
   defp findName(tr) do
@@ -39,4 +42,10 @@ defmodule ScrapeWebPage do
       _ -> ""
     end
   end
+
+  defp cryptoString(string) do
+    :crypto.hash(:sha256, string)
+      |> Base.encode16(case: :lower)
+  end
+
 end
