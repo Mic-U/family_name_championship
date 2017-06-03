@@ -1,18 +1,14 @@
 defmodule FamilyNameChampionship do
   @moduledoc """
-  Documentation for FamilyNameChampionship.
+   Decide the STRONGEST family name in Japan.
   """
 
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> FamilyNameChampionship.hello
-      :world
-
-  """
-  def hello do
-    :world
+  def main([]) do
+    IO.puts "Start"
+    url = "http://myoujijiten.web.fc2.com/a1.html";
+    list = ScrapeWebPage.getHTML(url)
+    name = Enum.at(list, 0)
+    player = "三木"
+    IO.puts player > name
   end
 end
