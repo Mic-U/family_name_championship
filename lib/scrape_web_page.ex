@@ -7,6 +7,7 @@ defmodule ScrapeWebPage do
     IO.puts "Search to #{url}"
     case HTTPoison.get(url) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
+        IO.puts "Get from #{url}"
         findFamilyNameList(body)
       {:ok, %HTTPoison.Response{status_code: 404}} ->
         IO.puts "Not found :("
@@ -20,7 +21,7 @@ defmodule ScrapeWebPage do
   end
 
   defp findFamilyNameList(body) do
-    Floki.find(body, "div tbody tr")
+    Floki.find(body, "#content table.simple tbody tr.odd td a")
       |> Enum.map(&(findName(&1)))
       |> Enum.filter(&(String.length(&1) > 0))
       |> Enum.map(fn name ->
@@ -28,10 +29,8 @@ defmodule ScrapeWebPage do
       end)
   end
 
-  defp findName(tr) do
-    elem(tr, 2)
-      |> Enum.at(1)
-      |> elem(2)
+  defp findName(a) do
+    elem(a, 2)
       |> Enum.at(0)
       |> addToList
   end
