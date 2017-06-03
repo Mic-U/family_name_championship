@@ -21,7 +21,7 @@ defmodule ScrapeWebPage do
   end
 
   defp findFamilyNameList(body) do
-    Floki.find(body, "#content table.simple tbody tr.odd td a")
+    Floki.find(body, "div tbody tr")
       |> Enum.map(&(findName(&1)))
       |> Enum.filter(&(String.length(&1) > 0))
       |> Enum.map(fn name ->
@@ -29,8 +29,10 @@ defmodule ScrapeWebPage do
       end)
   end
 
-  defp findName(a) do
-    elem(a, 2)
+  defp findName(tr) do
+    elem(tr, 2)
+      |> Enum.at(1)
+      |> elem(2)
       |> Enum.at(0)
       |> addToList
   end
