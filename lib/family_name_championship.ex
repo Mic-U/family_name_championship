@@ -14,10 +14,7 @@ defmodule FamilyNameChampionship do
 
     IO.puts "#{length(list)} Names Entry"
 
-    results = Enum.chunk(list, 20, 20, [])
-              |> Enum.map(&(chunkLeague(&1, list)))
-              |> Enum.reduce(fn(x, acc) -> x ++ acc end)
-    champion = Enum.sort(results, fn (x, y) -> x[:win] > y[:win] end)
+    champion = Enum.sort(list, fn (x, y) -> x[:hash] > y[:hash] end)
                |> Enum.at(0)
 
     IO.inspect champion
@@ -33,12 +30,5 @@ defmodule FamilyNameChampionship do
     |> Enum.map(&Task.await(&1, 10000))
     |> Enum.reduce(fn(x, acc) -> x ++ acc end)
 
-  end
-
-  defp chunkLeague(chunk, allNames) do
-    Enum.map(chunk, fn name ->
-      Task.async(fn  -> League.battleResult(name, allNames) end)
-    end)
-    |> Enum.map(&Task.await(&1, 10000))
   end
 end
