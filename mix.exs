@@ -31,7 +31,9 @@ defmodule FamilyNameChampionship.Mixfile do
   defp deps do
     [
       {:httpoison, "~> 0.11.1"},
-      {:floki, "~> 0.17.0"}
+      {:floki, "~> 0.17.0"},
+      {:earmark, "~> 0.1", only: :dev},
+      {:ex_doc, "~> 0.11", only: :dev}
     ]
   end
 end

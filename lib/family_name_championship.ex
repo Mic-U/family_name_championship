@@ -16,10 +16,12 @@ defmodule FamilyNameChampionship do
 
     champion = Enum.sort(list, fn (x, y) -> x[:hash] > y[:hash] end)
                |> Enum.at(0)
-
     IO.inspect champion
   end
 
+  @doc """
+    url5件ごとに並列で取得する
+  """
   defp getByUrlGroup(urlGroup) do
 
     Enum.map(urlGroup, fn url ->

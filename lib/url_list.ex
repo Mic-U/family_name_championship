@@ -1,6 +1,9 @@
 defmodule UrlList do
   @moduledoc false
 
+  @doc """
+    取得先URLの一覧
+  """
   def get do
     [
       "http://myoujijiten.web.fc2.com/a1.html",
