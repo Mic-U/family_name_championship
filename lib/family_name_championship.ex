@@ -16,7 +16,7 @@ defmodule FamilyNameChampionship do
 
     champion = Enum.sort(list, fn (x, y) -> x[:hash] > y[:hash] end)
                |> Enum.at(0)
-    IO.inspect champion
+    IO.puts "The Strongest Family Name is 「#{champion[:name]}」 !!"
   end
 
   @doc """
